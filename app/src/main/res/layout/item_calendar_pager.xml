@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:background="#aae8e8e8"
+             android:layout_width="match_parent"
+              android:layout_height="64dp">
+
+    <TextView
+        android:text="28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:id="@+id/gregorian"/>
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="top|right"
+        android:id="@+id/state"/>
+
+    <TextView
+        android:text="初九"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="4dp"
+        android:textSize="12sp"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/lunar"/>
+</FrameLayout>
