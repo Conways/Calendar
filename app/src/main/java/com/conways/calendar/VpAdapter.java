@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.Calendar;
+
 /**
  * Created by Conways on 2017/3/3.
  */
@@ -15,7 +17,9 @@ public class VpAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-        return CalendarFragment.newInstance(System.currentTimeMillis(),null);
+        Calendar calendar=Calendar.getInstance();
+        calendar.add(Calendar.MONTH,(position-Integer.MAX_VALUE/2));
+        return CalendarFragment.newInstance(calendar.getTimeInMillis(),null);
     }
 
     @Override

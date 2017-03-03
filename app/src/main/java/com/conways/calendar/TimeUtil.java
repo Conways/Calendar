@@ -1,6 +1,8 @@
 package com.conways.calendar;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Conways on 2017/3/2.
@@ -50,5 +52,24 @@ public class TimeUtil {
         int lastDay = getDayCountsOfOneMonthByTimestamp(timeStamp);
         calendar.set(Calendar.DAY_OF_MONTH, lastDay);
         return calendar.get(Calendar.DAY_OF_WEEK);
+    }
+
+
+    public static long dayTimeMillis=24*60*60*1000;
+
+
+    /**
+     * 跟据时间戳获取指定格式的时间字符串
+     *
+     * @param timeStamp
+     *            具体某个时间戳
+     * @param format
+     *            时间格式如：yy-MM-dd HH:mm:ss
+     * @return format格式的时间字符串
+     */
+
+    public static String getTimeFromTimeStamp(long timeStamp, String format) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        return dateFormat.format(new Date(timeStamp));
     }
 }
