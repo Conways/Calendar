@@ -6,14 +6,14 @@ package com.conways.calendar;
 
 public class DateEntity {
 
-    private int data;
+    private long data;
     private boolean inMonth;
 
-    public int getData() {
+    public long getData() {
         return data;
     }
 
-    public void setData(int data) {
+    public void setData(long data) {
         this.data = data;
     }
 

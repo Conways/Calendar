@@ -55,8 +55,6 @@ public class TimeUtil {
     }
 
 
-    public static long dayTimeMillis=24*60*60*1000;
-
 
     /**
      * 跟据时间戳获取指定格式的时间字符串
@@ -71,5 +69,29 @@ public class TimeUtil {
     public static String getTimeFromTimeStamp(long timeStamp, String format) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
         return dateFormat.format(new Date(timeStamp));
+    }
+
+    /**
+     * 根据时间戳获取当前日期是几号
+     * @param timeStamp
+     * @return
+     */
+    public static int getDayofMonthByTimeStamp(long timeStamp){
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTimeInMillis(timeStamp);
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 根据时间戳和相差天数获取目标日期的时间戳
+     * @param timeStamp
+     * @param distance
+     * @return
+     */
+    public static long getTimeStampbyTimeStampAndDistance(long timeStamp,int distance){
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTimeInMillis(timeStamp);
+        calendar.add(Calendar.DAY_OF_MONTH,distance);
+        return calendar.getTimeInMillis();
     }
 }

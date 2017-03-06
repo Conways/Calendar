@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:background="#aae8e8e8"
              android:layout_width="match_parent"
-              android:layout_height="58dp">
+             android:layout_height="58dp"
+             android:background="#aae8e8e8">
 
     <TextView
-        android:text="28"
+        android:id="@+id/gregorian"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/colorPrimary"
         android:layout_gravity="center"
-        android:id="@+id/gregorian"/>
+        android:text="28"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"/>
 
     <ImageView
+        android:id="@+id/state"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:background="@color/colorPrimary"
         android:layout_gravity="top|right"
-        android:id="@+id/state"/>
+        android:background="@color/colorPrimary"/>
 
     <TextView
-        android:text="初九"
+        android:id="@+id/lunar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="4dp"
-        android:textSize="12sp"
+        android:text="初九"
         android:textColor="@color/colorPrimary"
-        android:id="@+id/lunar"/>
+        android:textSize="12sp"
+        android:visibility="gone"/>
 </FrameLayout>

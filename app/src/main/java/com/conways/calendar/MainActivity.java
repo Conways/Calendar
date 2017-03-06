@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,9 +32,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.normalCalendar:
+                toTarget(CalendarActivity.class);
                 break;
             case R.id.dialogCalendar:
-                toTarget(CalendarActivity.class);
+                Toast.makeText(this,"建设中",Toast.LENGTH_SHORT).show();
                 break;
 
             default:

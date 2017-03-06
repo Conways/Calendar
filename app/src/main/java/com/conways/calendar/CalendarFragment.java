@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.WindowDecorActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,9 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends Fragment implements RvAdapter.RvItemClickListenter {
     private static final String DATE = "date";
     private static final String DATAS = "datas";
 
@@ -55,12 +57,12 @@ public class CalendarFragment extends Fragment {
     }
 
 
-
     private void init() {
-        rv=(RecyclerView)getView().findViewById(R.id.rv);
-        rv.setLayoutManager(new GridLayoutManager(getActivity(),7));
+        rv = (RecyclerView) getView().findViewById(R.id.rv);
+        rv.setLayoutManager(new GridLayoutManager(getActivity(), 7));
         rv.addItemDecoration(new GridItemDecoration(getActivity()));
-        myAdapter=new RvAdapter(getActivity(),dates);
+        myAdapter = new RvAdapter(getActivity(), dates);
+        myAdapter.setClickListenter(this);
         rv.setAdapter(myAdapter);
     }
 
@@ -72,11 +74,6 @@ public class CalendarFragment extends Fragment {
         init();
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -89,27 +86,28 @@ public class CalendarFragment extends Fragment {
         }
     }
 
-    private void initData(){
-        dates=new ArrayList<>();
-        int firstweekDay=TimeUtil.getWeekDayOfFirstDayInOneMonthByTimeStamp(date);
-        int lastweekDay=TimeUtil.getWeekDayOfLastDayInOneMonthByTimeStamp(date);
-        int maxDay=TimeUtil.getDayCountsOfOneMonthByTimestamp(date);
+    private void initData() {
+        dates = new ArrayList<>();
+        int firstweekDay = TimeUtil.getWeekDayOfFirstDayInOneMonthByTimeStamp(date);
+        int lastweekDay = TimeUtil.getWeekDayOfLastDayInOneMonthByTimeStamp(date);
+        int maxDay = TimeUtil.getDayCountsOfOneMonthByTimestamp(date);
+        int now = TimeUtil.getDayofMonthByTimeStamp(date);
 
-        for (int i = 1; i < firstweekDay; i++) {
-            DateEntity entity=new DateEntity();
-            entity.setData(0);
+        for (int i = firstweekDay - 1; i > 0; i--) {
+            DateEntity entity = new DateEntity();
+            entity.setData(TimeUtil.getTimeStampbyTimeStampAndDistance(date, -i - now + 1));
             entity.setInMonth(false);
             dates.add(entity);
         }
         for (int i = 0; i < maxDay; i++) {
-            DateEntity entity=new DateEntity();
-            entity.setData(i+1);
+            DateEntity entity = new DateEntity();
+            entity.setData(TimeUtil.getTimeStampbyTimeStampAndDistance(date, i - now + 1));
             entity.setInMonth(true);
             dates.add(entity);
         }
-        for (int i = 0; i < (7-lastweekDay); i++) {
-            DateEntity entity=new DateEntity();
-            entity.setData(0);
+        for (int i = 0; i < (7 - lastweekDay); i++) {
+            DateEntity entity = new DateEntity();
+            entity.setData(TimeUtil.getTimeStampbyTimeStampAndDistance(date, maxDay - now + i + 1));
             entity.setInMonth(false);
             dates.add(entity);
         }
@@ -121,9 +119,15 @@ public class CalendarFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void itemClick(long timeStamp) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(timeStamp);
+        }
+    }
 
 
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(long timeStamp);
     }
 }

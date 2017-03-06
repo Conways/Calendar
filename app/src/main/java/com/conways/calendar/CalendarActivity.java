@@ -8,21 +8,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Calendar;
 
 public class CalendarActivity extends AppCompatActivity  implements CalendarFragment
-        .OnFragmentInteractionListener,ViewPager.OnPageChangeListener{
+        .OnFragmentInteractionListener,ViewPager.OnPageChangeListener,View.OnClickListener{
 
     private ViewPager vp;
     private VpAdapter vpAdapter;
     private String tag;
     private TextView tvDate;
+    private ImageView btPrevious;
+    private ImageView btNext;
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onFragmentInteraction(long timeStamp) {
+        tvDate.setText(TimeUtil.getTimeFromTimeStamp(timeStamp,"yyyy-MM-dd"));
     }
 
     @Override
@@ -40,6 +43,10 @@ public class CalendarActivity extends AppCompatActivity  implements CalendarFrag
         vp.setAdapter(vpAdapter);
         vp.addOnPageChangeListener(this);
         vp.setCurrentItem(vpAdapter.getCount()/2,false);
+        btPrevious=(ImageView)this.findViewById(R.id.previous);
+        btNext=(ImageView)this.findViewById(R.id.next);
+        btPrevious.setOnClickListener(this);
+        btNext.setOnClickListener(this);
     }
 
     private void update(int position){
@@ -65,5 +72,25 @@ public class CalendarActivity extends AppCompatActivity  implements CalendarFrag
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.previous:
+                if (vp.getCurrentItem()<=0){
+                    break;
+                }
+                vp.setCurrentItem(vp.getCurrentItem()-1);
+                break;
 
+            case R.id.next:
+                if (vp.getCurrentItem()>=Integer.MAX_VALUE){
+                    break;
+                }
+                vp.setCurrentItem(vp.getCurrentItem()+1);
+            default:
+                break;
+
+
+        }
+    }
 }
